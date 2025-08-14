@@ -2,13 +2,13 @@ package middleware
 
 import (
 	"net/http"
-	"os"
 	"strings"
 
 	"github.com/dgrijalva/jwt-go"
 )
 
-var jwtSecret = []byte(os.Getenv("SECRET_KEY"))
+// var jwtSecret = []byte(os.Getenv("SECRET_KEY"))
+var jwtSecret = "greenmangomore"
 
 func JWTMiddleware(next http.HandlerFunc) http.HandlerFunc {
 	return func(w http.ResponseWriter, r *http.Request) {

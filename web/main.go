@@ -12,7 +12,7 @@ import (
 
 func main() {
 	srv := &http.Server{
-		Addr:    ":443",
+		Addr:    ":8081",
 		Handler: nil,
 	}
 
@@ -28,21 +28,27 @@ func main() {
 	stop := make(chan os.Signal, 1)
 	signal.Notify(stop, os.Interrupt, syscall.SIGTERM)
 
-	// Redirect to HTTPS
-	go func() {
-		log.Println("Redirecting HTTP to HTTPS...")
-		if err := http.ListenAndServe(":80", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-			http.Redirect(w, r, "https://"+r.Host+r.URL.String(), http.StatusMovedPermanently)
-		})); err != nil && err != http.ErrServerClosed {
-			log.Fatalf("HTTP server failed: %v", err)
-		}
-	}()
+	// // Redirect to HTTPS
+	// go func() {
+	// 	log.Println("Redirecting HTTP to HTTPS...")
+	// 	if err := http.ListenAndServe(":80", http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
+	// 		http.Redirect(w, r, "https://"+r.Host+r.URL.String(), http.StatusMovedPermanently)
+	// 	})); err != nil && err != http.ErrServerClosed {
+	// 		log.Fatalf("HTTP server failed: %v", err)
+	// 	}
+	// }()
 
-	// Starting server in a goroutine
+	// // Starting server in a goroutine
+	// go func() {
+	// 	log.Println("Server is running on port 443 (HTTPS)...")
+	// 	if err := srv.ListenAndServeTLS("/etc/letsencrypt/live/kishu-jain.com/fullchain.pem", "/etc/letsencrypt/live/kishu-jain.com/privkey.pem"); err != nil && err != http.ErrServerClosed {
+	// 		log.Fatalf("ListenAndServeTLS(): %v", err)
+	// 	}
+	// }()
 	go func() {
-		log.Println("Server is running on port 443 (HTTPS)...")
-		if err := srv.ListenAndServeTLS("/etc/letsencrypt/live/kishu-jain.com/fullchain.pem", "/etc/letsencrypt/live/kishu-jain.com/privkey.pem"); err != nil && err != http.ErrServerClosed {
-			log.Fatalf("ListenAndServeTLS(): %v", err)
+		log.Println("Frontend is running on port 8081 (HTTP)...")
+		if err := srv.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			log.Fatalf("ListenAndServe(): %v", err)
 		}
 	}()
 

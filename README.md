@@ -1,69 +1,91 @@
-# Keyshoes Blog
+# 🔑 KeyShoes Blog 🚀
 
-A simple blog app, created using go and react, to jot down random thoughts and things.
+Welcome to KeyShoes, a modern and stylish blog platform! 📝 This project provides a space for you to share your thoughts, ideas, and stories with the world.
 
-You can find the blog deployed at https://kishu-jain.com.
+## ✨ Features
 
-## Environment Variables
+-   **Create & Manage Posts**: Easily write, edit, and delete your blog posts.
+-   **User Authentication**: Secure user registration and login system.
+-   **Responsive Design**: A clean and beautiful interface that looks great on any device.
 
-To run this project, you will need to add the following environment variables to your .env file
+## 🛠️ Tech Stack
 
-.env file in cmd folder:
+-   **Frontend**: [React](https://react.dev/) with [Vite](https://vitejs.dev/)
+-   **Backend**: [Go](https://go.dev/)
+-   **Database**: [PostgreSQL](https://www.postgresql.org/)
+-   **Containerization**: [Docker](https://www.docker.com/)
 
-`DATABASE_URL="postgres://[username]:[password]@[host]:[port]/[dbname]?sslmode=disable”`
+## 🚀 Getting Started
 
-`REACT_URL=http://localhost:5173`
+Follow these instructions to get the project up and running on your local machine.
 
-.env file in web folder:
+### Prerequisites
 
-`VITE_BACKEND_URL=http://localhost:8080`
+Make sure you have the following installed:
 
-## Features
+-   [Docker](https://docs.docker.com/get-docker/)
+-   [Docker Compose](https://docs.docker.com/compose/install/)
 
-- Create, List, View, Delete blogs
-- Authentication for personal use or multiple users managing the same blogs
-- Store blogs in database
-
-## Run Locally
-
-Clone the project
-
-```bash
-  git clone https://github.com/Kishu98/blog-site
-```
-
-Go to the project directory
+### 1. Clone the Repository
 
 ```bash
-  cd blog-site
+git clone https://github.com/your-username/keyshoes.git
+cd keyshoes
 ```
 
-Go to cmd folder to run the backend (make sure to install postgres and run the migration file after creating the database)
+### 2. Set Up Environment Variables
+
+Create a `.env` file in the root directory by copying the example file:
 
 ```bash
-  go run main.go
+cp .env.example .env
 ```
 
-Go to web folder to run the frontend
+Now, open the `.env` file and replace the placeholder values with your own credentials.
+
+### 3. Build and Run with Docker
+
+To build and run the entire application, use Docker Compose:
 
 ```bash
-  npm install
-  npm run dev
+docker-compose up --build
 ```
 
-## Usage
+This command will:
 
-When running for the first time, to add user uncomment the 2nd line in main.go in /cmd folder and comment out the first line. Once the user has been added, you can comment and uncomment the first line below to login from next time.
+-   Build the Docker images for the frontend and backend services.
+-   Start the containers.
+-   Initialize the database with the required tables from `migrations/migrations.sql`.
 
-```go
-http.HandleFunc("/login", handlers.HandleAuth)
-// http.HandleFunc("/login", handlers.HandleSignup)
+Once everything is running, you can access the application:
+
+-   **Frontend**: [http://localhost:8081](http://localhost:8081)
+-   **Backend**: [http://localhost:8080](http://localhost:8080)
+
+## 💻 Frontend Development
+
+If you want to work on the frontend separately, you can run it locally without Docker.
+
+### 1. Navigate to the `web` Directory
+
+```bash
+cd web
 ```
 
-## Feedback
+### 2. Install Dependencies
 
-If you have any feedback, please reach out to me at kishujain.1998@gmail.com
+```bash
+npm install
+```
 
-## Authors
+### 3. Run the Development Server
 
-- [@kishu98](https://www.github.com/Kishu98)
+```bash
+npm run dev
+```
+
+This will start the Vite development server, and you can view the frontend at [http://localhost:5173](http://localhost:5173).
+
+---
+
+Happy blogging! 🎉

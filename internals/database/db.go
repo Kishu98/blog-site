@@ -4,7 +4,6 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
-	"os"
 	"time"
 
 	"github.com/joho/godotenv"
@@ -18,7 +17,9 @@ func ConnectDB() error {
 
 	godotenv.Load(".env")
 
-	db_url := os.Getenv("DATABASE_URL")
+	// db_url := os.Getenv("DATABASE_URL")
+	db_url := "postgres://kishu:kishu@db/blogdb?sslmode=disable"
+
 	if db_url == "" {
 		return fmt.Errorf("Database_URL environment variable is not set")
 	}
